@@ -1,0 +1,449 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --vblue:#1a5fa8;--vblue2:#1976d2;--vblue-dark:#0d3d6e;
+    --vcyan:#00b4cc;--vcyan2:#26c6da;--vcyan-light:#e0f7fa;
+    --vgray:#f2f5f9;--vborder:#d0dae8;--text:#1a2340;--text2:#4a5568;--text3:#8896a8;
+    --white:#fff;--font:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  }
+  .wrap{background:var(--vgray);padding-bottom:48px;font-family:var(--font);}
+
+  /* HEADER */
+  .hdr{background:var(--vblue-dark);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:56px;border-bottom:3px solid var(--vcyan);}
+  .hdr-brand{display:flex;align-items:center;gap:14px;}
+  .hdr-logo{background:white;border-radius:8px;padding:5px 12px;display:flex;align-items:center;justify-content:center;}
+  .hdr-logo img{height:34px;display:block;object-fit:contain;}
+  .hdr-sep{width:1px;height:30px;background:rgba(255,255,255,0.15);}
+  .hdr-label{font-size:11px;color:rgba(255,255,255,0.55);font-family:var(--mono);letter-spacing:0.07em;text-transform:uppercase;line-height:1.5;}
+  .hdr-label span{display:block;color:rgba(255,255,255,0.85);font-size:12px;}
+  .hdr-right{display:flex;align-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,0.45);font-family:var(--mono);}
+  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--vcyan);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .hero{
+    background:linear-gradient(120deg,#0d3d6e 0%,#1a5fa8 50%,#005f72 100%);
+    padding:32px 28px 28px;position:relative;overflow:hidden;
+  }
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;background:rgba(0,180,204,0.1);pointer-events:none;}
+  .hero::after{content:'';position:absolute;bottom:-50px;left:50%;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.03);pointer-events:none;}
+
+  .hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(0,180,204,0.18);border:1px solid rgba(0,180,204,0.35);border-radius:20px;padding:3px 12px;font-size:10px;color:#7fe9f5;font-family:var(--mono);letter-spacing:0.08em;margin-bottom:16px;}
+  .hero-title{font-size:26px;font-weight:300;color:#fff;letter-spacing:-0.01em;line-height:1.2;margin-bottom:10px;}
+  .hero-title strong{font-weight:700;color:#7fe9f5;}
+  .hero-desc{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.65;max-width:540px;margin-bottom:22px;}
+  .hero-chips{display:flex;gap:10px;flex-wrap:wrap;}
+  .chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.55);font-family:var(--mono);}
+  .chip-dot{width:5px;height:5px;border-radius:50%;}
+
+  /* PROGRESS */
+  .steps-bar{background:white;border-bottom:1px solid var(--vborder);padding:0 28px;display:flex;gap:0;overflow-x:auto;}
+  .step-item{display:flex;align-items:center;gap:8px;padding:14px 16px 14px 0;font-size:11px;color:var(--text3);font-family:var(--mono);white-space:nowrap;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .15s;}
+  .step-item.active{color:var(--vblue);border-bottom-color:var(--vblue);}
+  .step-n{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;}
+  .step-sep{color:var(--vborder);padding:14px 4px;font-size:13px;}
+
+  /* NOTICE */
+  .notice{margin:20px 28px 0;background:var(--vcyan-light);border:1px solid rgba(0,180,204,0.3);border-left:4px solid var(--vcyan);border-radius:8px;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;}
+  .notice-ico svg{width:15px;height:15px;stroke:var(--vcyan);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px;}
+  .notice-text{font-size:12px;color:#006064;line-height:1.55;}
+  .notice-text strong{font-weight:600;}
+
+  /* FORM BODY */
+  .fbody{padding:20px 28px 0;}
+  .scard{background:white;border:1px solid var(--vborder);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+  .scard-head{padding:15px 20px;border-bottom:1px solid var(--vborder);display:flex;align-items:center;gap:12px;background:var(--vgray);}
+  .scard-num{width:26px;height:26px;border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0;}
+  .scard-title{font-size:13px;font-weight:600;color:var(--text);flex:1;}
+  .scard-tag{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:10px;background:rgba(26,95,168,0.1);color:var(--vblue);}
+  .scard-body{padding:18px 20px;}
+
+  /* FIELDS */
+  .fgrid{display:grid;gap:14px;margin-bottom:14px;}
+  .fgrid.g2{grid-template-columns:1fr 1fr;}
+  .fgrid.g3{grid-template-columns:1fr 1fr 1fr;}
+  .fgrid.g1{grid-template-columns:1fr;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.span2{grid-column:span 2;}
+  .flabel{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.04em;display:flex;align-items:center;gap:5px;}
+  .flabel .req{color:#c62828;font-size:14px;line-height:1;}
+  .flabel .opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--text3);font-size:10px;}
+  .finput{background:var(--vgray);border:1.5px solid var(--vborder);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--text);font-family:var(--font);outline:none;transition:border-color .15s,background .15s;width:100%;}
+  .finput::placeholder{color:var(--text3);}
+  .finput:focus{border-color:var(--vblue);background:white;box-shadow:0 0 0 3px rgba(26,95,168,0.1);}
+  .finput.readonly{color:var(--vcyan);font-family:var(--mono);font-size:12px;background:#f0fafc;border-color:rgba(0,180,204,0.3);}
+  select.finput{cursor:pointer;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238896a8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+  select.finput option{background:white;color:var(--text);}
+  textarea.finput{resize:vertical;min-height:90px;line-height:1.6;}
+  .currency-wrap{position:relative;}
+  .currency-sym{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--vblue);font-family:var(--mono);}
+  .currency-wrap .finput{padding-left:38px;}
+  .percent-wrap{position:relative;}
+  .percent-sym{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--vblue);font-family:var(--mono);}
+  .percent-wrap .finput{padding-right:32px;}
+
+  /* RADIO PILLS */
+  .rpills{display:flex;gap:8px;flex-wrap:wrap;}
+  .rpill{display:flex;align-items:center;gap:7px;padding:8px 13px;border:1.5px solid var(--vborder);border-radius:8px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .15s;background:var(--vgray);user-select:none;}
+  .rpill:hover{border-color:var(--vblue);color:var(--vblue);}
+  .rpill.sel{border-color:var(--vblue);color:var(--vblue);background:rgba(26,95,168,0.07);}
+  .rdot{width:13px;height:13px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rdot-inner{width:5px;height:5px;border-radius:50%;background:currentColor;display:none;}
+  .rpill.sel .rdot-inner{display:block;}
+
+  /* PRIORITY */
+  .prow{display:flex;gap:8px;flex-wrap:wrap;}
+  .pbadge{display:flex;align-items:center;gap:7px;padding:8px 14px;border:1.5px solid var(--vborder);border-radius:8px;font-size:12px;color:var(--text2);cursor:pointer;transition:all .15s;background:var(--vgray);user-select:none;}
+  .pbadge.p-normal.sel{border-color:var(--vblue);color:var(--vblue);background:rgba(26,95,168,0.07);}
+  .pbadge.p-alta.sel{border-color:#e65100;color:#e65100;background:#fff3e0;}
+  .pbadge.p-critica.sel{border-color:#c62828;color:#c62828;background:#ffebee;}
+  .pbullet{width:9px;height:9px;border-radius:50%;}
+
+  /* UPLOAD — múltiplos slots */
+  .upload-slots{display:flex;flex-direction:column;gap:12px;}
+  .upload-slot-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;display:flex;align-items:center;gap:6px;}
+  .upload-slot-label .req{color:#c62828;font-size:14px;line-height:1;}
+  .upload-slot-label .file-badge{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:10px;background:rgba(26,95,168,0.1);color:var(--vblue);text-transform:none;letter-spacing:0;font-weight:500;}
+  .upload-zone{border:2px dashed var(--vborder);border-radius:10px;padding:18px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative;background:var(--vgray);}
+  .upload-zone:hover{border-color:var(--vcyan);background:var(--vcyan-light);}
+  .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+  .upload-ico svg{width:22px;height:22px;stroke:var(--vcyan);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:6px;}
+  .upload-main{font-size:13px;font-weight:500;color:var(--text2);margin-bottom:2px;}
+  .upload-main span{color:var(--vblue);text-decoration:underline;}
+  .upload-sub{font-size:11px;color:var(--text3);font-family:var(--mono);}
+
+  /* APPROVERS — 3 cards em coluna com ordem numerada */
+  .aplist{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .apcard{display:flex;align-items:center;gap:11px;padding:13px 15px;background:var(--vgray);border:1px solid var(--vborder);border-radius:9px;}
+  .aporder{width:22px;height:22px;border-radius:50%;background:var(--vblue-dark);color:white;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono);flex-shrink:0;}
+  .apavatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--mono);}
+  .apinfo{flex:1;min-width:0;}
+  .apname{font-size:12px;font-weight:600;color:var(--text);}
+  .aprole{font-size:11px;color:var(--text3);margin-top:1px;}
+  .apresponsavel{font-size:11px;color:var(--vblue);margin-top:2px;font-weight:500;}
+  .apstatus{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:10px;border:1px solid;white-space:nowrap;color:#7b8da6;border-color:#d0dae8;}
+
+  /* FOOTER */
+  .ffoot{background:white;border-top:1px solid var(--vborder);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;}
+  .foot-info{font-size:11px;color:var(--text3);font-family:var(--mono);}
+  .foot-actions{display:flex;gap:10px;}
+  .btn-sec{padding:9px 18px;border-radius:8px;border:1.5px solid var(--vborder);background:white;color:var(--text2);font-size:13px;font-family:var(--font);cursor:pointer;font-weight:500;}
+  .btn-sec:hover{border-color:var(--vblue);color:var(--vblue);}
+  .btn-pri{padding:9px 22px;border-radius:8px;border:none;background:var(--vblue);color:white;font-size:13px;font-family:var(--font);font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s;}
+  .btn-pri:hover{background:var(--vblue2);transform:translateY(-1px);}
+  .btn-pri svg{width:13px;height:13px;}
+
+  /* SUCCESS */
+  .success-screen{display:none;position:fixed;inset:0;background:white;z-index:200;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;}
+  .success-screen.show{display:flex;animation:fadeUp .4s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .scheck{width:64px;height:64px;border-radius:50%;border:2.5px solid var(--vcyan);display:flex;align-items:center;justify-content:center;margin-bottom:22px;animation:pop .4s .1s both;}
+  @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+  .scheck svg{width:26px;height:26px;stroke:var(--vcyan);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+  .stitle{font-size:22px;font-weight:300;color:var(--text);margin-bottom:8px;letter-spacing:-.02em;}
+  .stitle strong{font-weight:700;color:var(--vblue);}
+  .sdesc{font-size:14px;color:var(--text2);line-height:1.65;max-width:400px;margin-bottom:6px;}
+  .sprot{font-family:var(--mono);font-size:12px;color:var(--vcyan);margin-bottom:28px;}
+  .snext{display:flex;flex-direction:column;gap:8px;width:100%;max-width:380px;margin-bottom:28px;}
+  .snext-item{display:flex;align-items:center;gap:11px;background:var(--vgray);border:1px solid var(--vborder);border-radius:9px;padding:11px 14px;font-size:12px;color:var(--text2);text-align:left;}
+  .snext-n{width:20px;height:20px;border-radius:50%;background:var(--vcyan-light);border:1px solid rgba(0,180,204,.4);color:var(--vcyan);font-size:10px;font-family:var(--mono);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:600;}
+
+  @media(max-width:580px){
+    .fgrid.g2,.fgrid.g3{grid-template-columns:1fr;}
+    .field.span2{grid-column:span 1;}
+    .hdr,.fbody,.ffoot{padding-left:16px;padding-right:16px;}
+    .hero{padding:24px 16px 20px;}
+    .steps-bar{padding:0 16px;}
+    .notice{margin-left:16px;margin-right:16px;}
+    .ffoot{flex-direction:column;align-items:stretch;}
+    .foot-actions{justify-content:flex-end;}
+  }
+</style>
+
+<div class="wrap" id="mainWrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-brand">
+      <div class="hdr-logo">
+        <img src="data:image/jpeg;base64,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" alt="VALENET" style="height:40px;object-fit:contain;image-rendering:-webkit-optimize-contrast;">
+      </div>
+      <div class="hdr-sep"></div>
+      <div class="hdr-label">Setor de Projetos<span>Formulários Internos</span></div>
+    </div>
+    <div class="hdr-right"><span class="live-dot"></span> forms.microsoft.com</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">Estudo de Viabilidade Técnica e Econômica</div>
+    <div class="hero-title"><strong>EVTE</strong> — Valenet</div>
+    <div class="hero-desc">Preencha todos os campos obrigatórios. Após o envio, o fluxo de aprovação será iniciado automaticamente via Microsoft Outlook.</div>
+    <div class="hero-chips">
+      <div class="chip"><span class="chip-dot" style="background:#26c6da"></span>Power Automate integrado</div>
+      <div class="chip"><span class="chip-dot" style="background:#7fe9f5"></span>Aprovação via Outlook</div>
+      <div class="chip"><span class="chip-dot" style="background:rgba(255,255,255,.4)"></span>Registro automático no Excel</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS — 3 etapas -->
+  <div class="steps-bar">
+    <div class="step-item active"><div class="step-n">1</div>Identificação</div>
+    <span class="step-sep">/</span>
+    <div class="step-item"><div class="step-n">2</div>Comercial</div>
+    <span class="step-sep">/</span>
+    <div class="step-item"><div class="step-n">3</div>Aprovação</div>
+  </div>
+
+  <!-- NOTICE -->
+  <div class="notice">
+    <div class="notice-ico">
+      <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><line x1="8" y1="5" x2="8" y2="8.5"/><circle cx="8" cy="11" r=".6" fill="#00b4cc" stroke="none"/></svg>
+    </div>
+    <div class="notice-text"><strong>Campos marcados com * são obrigatórios.</strong> O código de protocolo é gerado automaticamente e será o identificador da EVTE em todo o processo de aprovação.</div>
+  </div>
+
+  <div class="fbody">
+
+    <!-- SEÇÃO 1 — Identificação -->
+    <div class="scard">
+      <div class="scard-head">
+        <div class="scard-num" style="background:var(--vblue);">1</div>
+        <span class="scard-title">Identificação do Projeto</span>
+        <span class="scard-tag">Geral</span>
+      </div>
+      <div class="scard-body">
+        <div class="fgrid g2">
+          <div class="field">
+            <label class="flabel">Nome do projeto <span class="req">*</span></label>
+            <input class="finput" type="text" placeholder="Ex: Expansão Fibra — Zona Norte Itabira">
+          </div>
+          <div class="field">
+            <label class="flabel">Código / Protocolo <span class="opt">gerado automaticamente</span></label>
+            <input class="finput readonly" type="text" value="EVTE-2026-0047" readonly>
+          </div>
+          <div class="field">
+            <label class="flabel">Responsável pelo projeto <span class="req">*</span></label>
+            <input class="finput" type="text" placeholder="Nome completo">
+          </div>
+          <div class="field">
+            <label class="flabel">E-mail do responsável <span class="req">*</span></label>
+            <input class="finput" type="email" placeholder="nome@valenet.com.br">
+          </div>
+          <div class="field">
+            <label class="flabel">Departamento <span class="req">*</span></label>
+            <select class="finput">
+              <option value="" disabled selected>Selecione</option>
+              <option>Projetos</option>                         
+            </select>
+          </div>
+          <div class="field">
+            <label class="flabel">Data de submissão <span class="req">*</span></label>
+            <input class="finput" type="date" value="2026-04-10">
+          </div>
+        </div>
+
+        <!-- Prioridade na seção 1 -->
+        <div class="field" style="margin-top:4px;">
+          <label class="flabel">Prioridade do projeto <span class="req">*</span></label>
+          <div class="prow" id="prioGroup">
+            <div class="pbadge p-normal" onclick="selPrio(this,'p-normal')"><div class="pbullet" style="background:var(--vblue);border-radius:50%;"></div>Normal</div>
+            <div class="pbadge p-alta" onclick="selPrio(this,'p-alta')"><div class="pbullet" style="background:#e65100;border-radius:2px;"></div>Alta</div>
+            <div class="pbadge p-critica" onclick="selPrio(this,'p-critica')"><div class="pbullet" style="background:#c62828;"></div>Crítica</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 2 — Informações Comerciais -->
+    <div class="scard">
+      <div class="scard-head">
+        <div class="scard-num" style="background:#00838f;">2</div>
+        <span class="scard-title">Informações Solicitadas ao Comercial</span>
+        <span class="scard-tag">Comercial</span>
+      </div>
+      <div class="scard-body">
+        <div class="fgrid g1" style="margin-bottom:14px;">
+
+          <!-- Taxa de inadimplência -->
+          <div class="field">
+            <label class="flabel">Taxa de inadimplência estimada <span class="req">*</span></label>
+            <div class="percent-wrap">
+              <input class="finput" type="number" min="0" max="100" step="0.1" placeholder="0,0">
+              <span class="percent-sym">%</span>
+            </div>
+          </div>
+
+          <!-- Concorrentes -->
+          <div class="field">
+            <label class="flabel">Concorrentes na região <span class="req">*</span></label>
+            <textarea class="finput" placeholder="Liste os principais concorrentes identificados na região: nome da operadora, tecnologia ofertada, faixa de preço e participação estimada de mercado..." style="min-height:90px;"></textarea>
+          </div>
+
+          <!-- Observações -->
+          <div class="field">
+            <label class="flabel">Observações comerciais</label>
+            <textarea class="finput" placeholder="Informações complementares relevantes: contexto de mercado, riscos identificados, oportunidades estratégicas..." style="min-height:90px;"></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO 3 — Aprovadores e Documentação -->
+    <div class="scard">
+      <div class="scard-head">
+        <div class="scard-num" style="background:#37474f;">3</div>
+        <span class="scard-title">Aprovadores e Documentação</span>
+        <span class="scard-tag">Workflow</span>
+      </div>
+      <div class="scard-body">
+
+        <!-- Aprovadores em ordem sequencial -->
+        <div class="aplist">
+
+          <!-- 1º Comercial -->
+          <div class="apcard">
+            <div class="aporder">1º</div>
+            <div class="apavatar" style="background:rgba(0,131,143,.12);color:#00838f;">COM</div>
+            <div class="apinfo">
+              <div class="apname">Comercial</div>
+              <div class="aprole">Validação de demanda e viabilidade comercial</div>
+              <div class="apresponsavel">Responsável: Wagner José Ferreira</div>
+            </div>
+            <div class="apstatus">Aguardando</div>
+          </div>
+
+          <!-- 2º Engenharia -->
+          <div class="apcard">
+            <div class="aporder">2º</div>
+            <div class="apavatar" style="background:rgba(26,95,168,.12);color:#1a5fa8;">ENG</div>
+            <div class="apinfo">
+              <div class="apname">Engenharia</div>
+              <div class="aprole">Análise técnica do escopo</div>
+              <div class="apresponsavel">Responsável: Leoney Fernando Rufino</div>
+            </div>
+            <div class="apstatus">Aguardando</div>
+          </div>
+
+          <!-- 3º Diretoria -->
+          <div class="apcard">
+            <div class="aporder">3º</div>
+            <div class="apavatar" style="background:rgba(230,81,0,.1);color:#e65100;">DIR</div>
+            <div class="apinfo">
+              <div class="apname">Diretoria</div>
+              <div class="aprole">Aprovação executiva final</div>
+              <div class="apresponsavel">Responsável: Ricardo Magalhães</div>
+            </div>
+            <div class="apstatus">Aguardando</div>
+          </div>
+
+        </div>
+
+        <!-- Upload de documentos — PDF, WORD e EXCEL separados -->
+        <div class="upload-slots">
+
+          <!-- PDF -->
+          <div>
+            <div class="upload-slot-label">
+              Documento EVTE — PDF <span class="req">*</span>
+              <span class="file-badge">.pdf</span>
+            </div>
+            <div class="upload-zone">
+              <input type="file" accept=".pdf" onchange="handleFile(this,'upMainPdf','upSubPdf')">
+              <div class="upload-ico">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+              </div>
+              <div class="upload-main" id="upMainPdf">Arraste o arquivo ou <span>clique para selecionar</span></div>
+              <div class="upload-sub" id="upSubPdf">Somente PDF · máx. 25 MB</div>
+            </div>
+          </div>
+
+          <!-- WORD -->
+          <div>
+            <div class="upload-slot-label">
+              Documento EVTE — Word
+              <span class="file-badge">.docx / .doc</span>
+            </div>
+            <div class="upload-zone">
+              <input type="file" accept=".doc,.docx" onchange="handleFile(this,'upMainWord','upSubWord')">
+              <div class="upload-ico">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+              </div>
+              <div class="upload-main" id="upMainWord">Arraste o arquivo ou <span>clique para selecionar</span></div>
+              <div class="upload-sub" id="upSubWord">Somente Word (.doc / .docx) · máx. 25 MB</div>
+            </div>
+          </div>
+
+          <!-- EXCEL -->
+          <div>
+            <div class="upload-slot-label">
+              Planilha EVTE — Excel
+              <span class="file-badge">.xlsx / .xls</span>
+            </div>
+            <div class="upload-zone">
+              <input type="file" accept=".xls,.xlsx" onchange="handleFile(this,'upMainXls','upSubXls')">
+              <div class="upload-ico">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+              </div>
+              <div class="upload-main" id="upMainXls">Arraste o arquivo ou <span>clique para selecionar</span></div>
+              <div class="upload-sub" id="upSubXls">Somente Excel (.xls / .xlsx) · máx. 25 MB</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ffoot">
+    <span class="foot-info">EVTE-2026-0047 · VALENET · Rascunho salvo</span>
+    <div class="foot-actions">
+      <button class="btn-sec">Salvar rascunho</button>
+      <button class="btn-pri" onclick="submitForm()">
+        Enviar para aprovação
+        <svg viewBox="0 0 13 13" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="6.5" x2="11" y2="6.5"/><polyline points="7.5,3 11,6.5 7.5,10"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="scheck">
+    <svg viewBox="0 0 26 26"><polyline points="4,13 10,19 22,7"/></svg>
+  </div>
+  <div class="stitle">EVTE enviado com <strong>sucesso</strong></div>
+  <div class="sdesc">O fluxo de aprovação foi iniciado automaticamente. Todos os aprovadores receberão notificação via Outlook.</div>
+  <div class="sprot">Protocolo: EVTE-2026-0047 · VALENET</div>
+  <div class="snext">
+    <div class="snext-item"><div class="snext-n">1</div>Notificação enviada ao Comercial — Wagner José Ferreira</div>
+    <div class="snext-item"><div class="snext-n">2</div>Após aprovação comercial: notificação à Engenharia — Leoney Fernando Rufino</div>
+    <div class="snext-item"><div class="snext-n">3</div>Após aprovação da engenharia: notificação à Diretoria — Ricardo Magalhães</div>
+  </div>
+  <button class="btn-pri" onclick="resetForm()" style="padding:11px 28px;">Novo EVTE</button>
+</div>
+
+<script>
+function selRadio(el,group){
+  document.querySelectorAll('#'+group+' .rpill').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function selPrio(el,cls){
+  document.querySelectorAll('#prioGroup .pbadge').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function handleFile(input,mainId,subId){
+  if(input.files&&input.files[0]){
+    const f=input.files[0];
+    document.getElementById(mainId).innerHTML='<span>'+f.name+'</span>';
+    document.getElementById(subId).textContent=(f.size/1024/1024).toFixed(2)+' MB · arquivo selecionado';
+  }
+}
+function submitForm(){document.getElementById('successScreen').classList.add('show');}
+function resetForm(){document.getElementById('successScreen').classList.remove('show');}
+</script>
